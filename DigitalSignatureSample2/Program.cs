@@ -34,27 +34,30 @@ namespace DigitalSignatureSample2
                         break;
 
                     case "sign":
-                        string sampleText = prompt ? InputPrompt("text") : args[1].ToLower();
+                        string phrase = prompt && args.Length < 1 ? InputPrompt("phrase") : args[1].ToLower();
+                        string certName = prompt && args.Length < 2 ? InputPrompt("keyCertName") : args[3].ToLower();
                         var helper1 = new DigitalSignatureHelper();
-                        var sign = helper1.GetDigitalSignature(sampleText, "testSigningCertificate");
+                        var sign = helper1.GetDigitalSignature(phrase, certName);
                         Console.WriteLine(sign);
                         break;
 
                     case "verify":
 
-                        string sampleText2 = prompt && args.Length < 1 ? InputPrompt("text") : args[1].ToLower();
-                        string signtext = prompt && args.Length < 2 ? InputPrompt("signature") : args[2].ToLower();
+                        string phrase2 = prompt && args.Length < 1 ? InputPrompt("phrase") : args[1].ToLower();
+                        string signature = prompt && args.Length < 2 ? InputPrompt("signature") : args[2].ToLower();
+                        string certName2 = prompt && args.Length < 3 ? InputPrompt("keyCertName") : args[3].ToLower();
                         var helper2 = new DigitalSignatureHelper();
-                        var result = helper2.VerifySignature(sampleText2, signtext, "testSigningCertificate");
+                        var result = helper2.VerifySignature(phrase2, signature, certName2);
                         Console.WriteLine(result);
                         break;
 
                     case "signAndverify":
 
-                        string sampleText3 = prompt && args.Length < 1 ? InputPrompt("text") : args[1].ToLower();
+                        string phrase3 = prompt && args.Length < 1 ? InputPrompt("phrase") : args[1].ToLower();
+                        string certName3 = prompt && args.Length < 2 ? InputPrompt("keyCertName") : args[3].ToLower();
                         var helper3 = new DigitalSignatureHelper();
-                        var sign3 = helper3.GetDigitalSignature(sampleText3, "testSigningCertificate");
-                        var result3 = helper3.VerifySignature(sampleText3, sign3, "testSigningCertificate");
+                        var sign3 = helper3.GetDigitalSignature(phrase3, certName3);
+                        var result3 = helper3.VerifySignature(phrase3, sign3, certName3);
                         Console.WriteLine(result3);
                         break;
 
